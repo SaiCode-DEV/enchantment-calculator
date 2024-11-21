@@ -10,13 +10,6 @@
       <div class="py-4" />
 
       <v-data-table :headers="headers" :items="trades" class="elevation-1">
-        <template v-slot:top>
-          <v-toolbar flat>
-            <v-toolbar-title>{{ $t('villager_trades') }}</v-toolbar-title>
-            <v-divider class="mx-4" inset vertical></v-divider>
-            <v-spacer></v-spacer>
-          </v-toolbar>
-        </template>
         <template v-slot:item.items="{ item }">
           <div class="d-flex flex-wrap justify-center" style="max-width: 225px;">
             <v-img v-for="(img, index) in item.items" :key="index" :src="`/img/items/${img}.gif`"
@@ -41,6 +34,13 @@
             class="ma-0"
           />
         </template>
+        <template v-slot:header.zombified>
+          <v-tooltip text="Zombified">
+            <template v-slot:activator="{ props }">
+              <v-img src="/img/Zombie_Head.webp" height="25" class="pixelated" />
+            </template>
+          </v-tooltip>
+        </template>
       </v-data-table>
     </v-responsive>
   </v-container>
@@ -60,7 +60,7 @@ const headers = [
   { title: 'Price Range', value: 'priceRange' },
   { title: 'Items', value: 'items' },
   { title: 'Price', value: 'price' },
-  { title: 'Zombified', value: 'zombified' },
+  { title: 'Zombified', value: 'zombified', align: 'center' },
 ]
 
 const minPrice = (level: number, isRare: boolean, isZombified = false) => {
